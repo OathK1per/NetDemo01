@@ -48,6 +48,10 @@ public class Send implements Runnable{
 
     @Override
     public void run() {
+        String name = fromConsole();
+        if (!name.equals("")) {
+            send(name);
+        }
         while (isRun) {
             String msg = fromConsole();
             if (!msg.equals("")) {
@@ -62,6 +66,7 @@ public class Send implements Runnable{
 
     private void release() {
         isRun = false;
+        send("quit");
         NetUtils.release(dos, client);
     }
 }

@@ -32,6 +32,7 @@ public class OOPServer {
         private DataOutputStream dos;
         private Socket client;
         private boolean isRun = true;
+        private String name = "";
         private CopyOnWriteArrayList<Channel> channels;
         public Channel(Socket client, CopyOnWriteArrayList<Channel> channels) {
             this.client = client;
@@ -89,10 +90,23 @@ public class OOPServer {
 
         @Override
         public void run() {
+            String name = receive();
+            if (!name.equals("")) {
+                this.name = name;
+                String str = name + "被邀请入群";
+                sendToOthers(str);
+                str = "欢迎亲爱的" + name + "进入群聊";
+                send(str);
+            }
             while (isRun) {
                 String msg = receive();
+                if (msg.equals("quit")) {
+                    String str = name + "已退出群聊";
+                    sendToOthers(str);
+                }
                 if (!msg.equals("")) {
-                    sendToOthers(msg);
+                    String str = name + "说：" + msg;
+                    sendToOthers(str);
                 }
             }
             release();
