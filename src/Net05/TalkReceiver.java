@@ -5,6 +5,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
+/**
+ * 后续：以面向对象的思维再封装，将run中的内容改写为多个方法
+ */
 public class TalkReceiver implements Runnable {
     private DatagramSocket socket;
     private String from;
