@@ -57,16 +57,12 @@ public class Send implements Runnable{
             if (!msg.equals("")) {
                 send(msg);
             }
-            if (msg.equals("quit")) {
-                break;
-            }
         }
         release();
     }
 
     private void release() {
         isRun = false;
-        send("quit");
         NetUtils.release(dos, client);
     }
 }
